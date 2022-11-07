@@ -1,80 +1,29 @@
-gsap.fromTo(
-  ".astronaut_1",
-  {
-    y: 500
-  },
-  {
-    y: 0,
-    opacity: 1,
-    duration: 2.5,
-    ease: "elastic.out(1, 0.8)",
-    scrollTrigger: {
-      trigger: ".astronaut_1",
-      start: "top 70%"
-
+function showAstronaut(target, startY, endY, startOpacity, endOpacity, entry, del){
+  gsap.fromTo(
+    target,
+    {
+      y: startY,
+      opacity: startOpacity,
+    },
+    {
+      y: endY,
+      opacity: endOpacity,
+      ease: entry,
+      duration: 2.5,
+      delay: del,
+      scrollTrigger: {
+        trigger: ".astronaut_1",
+        start: "top 70%"
+      }
     }
-  }
-);
-gsap.fromTo(
-  ".chat",
-  {
-    opacity: 0,
-  },
-  {
-    opacity: 1,
-    duration: 2.5,
-    delay: 1,
-    scrollTrigger: {
-      trigger: ".astronaut_1",
-      start: "top 70%"
 
-    }
-  }
-);
-gsap.fromTo(
-  ".social_media",
-  {
-    opacity: 0,
-  },
-  {
-    opacity: 1,
-    duration: 2.5,
-    delay: 1,
-    scrollTrigger: {
-      trigger: ".astronaut_1",
-      start: "top 70%"
-    }
-  }
-);
-gsap.fromTo(
-  ".zahnraeder",
-  {
-    opacity: 0,
-    y: -100,
-  },
-  {
-    y: 100,
-    opacity: 1,
-    delay: 1,
-    scrollTrigger: {
-      trigger: ".astronaut_1",
-
-    }
-  }
-);
-gsap.fromTo(
-  ".email",
-  {
-    opacity: 0,
-  },
-  {
-    opacity: 1,
-    delay: 1.5,
-    trigger: ".astronaut_1",
-
-
-  }
-);
+  );
+}
+showAstronaut(".astronaut_1", 500, 0, 0, 1, "elastic.out(1, 0.8)", 0);
+showAstronaut(".chat", 0, 0, 0, 1, "", 1);
+showAstronaut(".social_media", 0, 0, 0, 1, "", 1);
+showAstronaut(".zahnraeder", -100, 100, 0, 1, "", 1);
+showAstronaut(".email", 0, 0, 0, 1, "", 1);
 
 
 gsap.to(".planet_1", { y: 15, ease: "power1.inOut", repeat: -1, duration: 1.5, yoyo: true });
@@ -82,24 +31,10 @@ gsap.fromTo(".planet_2", { y: 0 }, { y: 15, ease: "power1.inOut", repeat: -1, du
 gsap.fromTo(".astronaut_2", { y: 0 }, { y: 15, ease: "power1.inOut", repeat: -1, duration: 1.5, yoyo: true });
 gsap.fromTo(".cosmos__div-btn", { scale: 1, }, { scale: 1.05, repeat: -1, duration: 1.5, yoyo: true });
 gsap.to(".cosmos__btn", { repeat: -1, duration: 1.5, boxShadow: "0 0 0 9px rgba(46, 174, 222, 0.3)", yoyo: true });
-var tl = gsap.timeline({ repeat: -1, duration: 1.5, yoyo: true });
+
 
 
 function parallaxIt(e, target, movement) {
-  var $this = $(target);
-  var relX = e.pageX - $this.offset().left;
-  var relY = e.pageY - $this.offset().top;
-
-  var posX = (relX - $this.width() / 2) / $this.width() * movement;
-  var posY = (relY - $this.height() / 2) / $this.height() * movement;
-
-  gsap.to(target, 0.5, {
-    backgroundPosition: posX + "px " + posY + "px"
-  });
-}
-
-
-function parallaxIt2(e, target, movement) {
   var $this = $(target);
   var relX = e.pageX - $this.offset().left;
   var relY = e.pageY - $this.offset().top;
@@ -110,12 +45,10 @@ function parallaxIt2(e, target, movement) {
   });
 }
 
-
-$(".cosmos__2").mousemove(function (e) {
-  parallaxIt2(e, ".cosmos__background", -30);
-  parallaxIt2(e, ".astronaut_1", -5);
+document.querySelector(".cosmos__2").addEventListener('mousemove', (e) => {
+  parallaxIt(e, ".cosmos__background", -30);
+  parallaxIt(e, ".astronaut_1", -5);
 });
-
 
 function movement(target, startX, startY, endX, endY, startRotate, endRotate, startScale, endScale) {
 
